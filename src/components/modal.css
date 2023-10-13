@@ -15,6 +15,7 @@
     border-radius: 8px;
     width: 600px;
     max-height: 500px;
+    min-height: 500px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -33,11 +34,18 @@
     background-color: #fff;
     border: none;
 }
+.btn-back {
+    position: absolute;
+    left: 40px;
+    background-color: #fff;
+    border: 1px solid var(--light-border-color);
+}
 
 .modal-bottom {
+    border-top: 1px solid var(--light-border-color);
     display: flex;
     justify-content: space-between;
-    margin: 20px 40px;
+    padding: 20px 40px;
     position: relative;
 }
 
@@ -77,15 +85,17 @@
 
 .list-container {
     border-top: 1px solid var(--light-border-color);
-    border-bottom: 1px solid var(--light-border-color);
     padding: 0 40px;
     margin-top: 24px;
-    overflow-y: auto;
+    overflow-y: scroll;
+    margin-bottom: auto;
 }
-
 .list-supplier {
     padding: 12px;
     border-bottom: 1px solid var(--light-border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     
     &:hover {
         background-color: var(--blue-hover);
@@ -93,16 +103,29 @@
 }
 
 .list-product {
-    padding: 20px 12px;
+    padding: 20px 12px 20px 0;
+    color: #7f7f7f;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:hover {
+        background-color: var(--gray-hover-color);
+    }
 }
 
-.list-container-supplier {
+
+.name-avatar-container {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
 }
-.arrow-dropdown {
-    color: var(--light-border-color);
+
+.product-name {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
 }
+
 .list-supplier:hover span {
     color: white;
 }

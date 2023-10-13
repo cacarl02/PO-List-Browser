@@ -10,10 +10,8 @@ function SuppliersData({ filteredData, handleSupplierClick }) {
             onClick={() => handleSupplierClick(data.name)}
             className='list-supplier'
         >
-            <div className='list-container-supplier'>
             <span>{data.name}</span>
             <span className='arrow-dropdown'><AiOutlineRight /></span>
-            </div>
         </div>
         ))
         }

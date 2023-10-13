@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AiOutlineClose } from 'react-icons/ai'
+import { AiOutlineArrowLeft, AiOutlineClose } from 'react-icons/ai'
 import './modal.css'
 import supplierData from '../suppliers.json'
 import productData from '../products.json'
@@ -26,12 +26,18 @@ function Modal(props) {
   }
 
   const handleProductClick = () => {
-    
+
   }
   const handleModalClose = () => {
     setIsModalOpen(false)
-    setTitle(null)
     setIsProductClose(true)
+    setTitle(null)
+    setSearchText('')
+    setFilteredData(supplierData)
+  }
+  const handleReturn = () => {
+    setIsProductClose(true)
+    setTitle(null)
     setSearchText('')
     setFilteredData(supplierData)
   }
@@ -50,6 +56,7 @@ function Modal(props) {
         <div className='modal-container'>
           <div className='modal-top'>
             <div className=''>{title ? title : 'Browse'}</div>
+            { !isProductClose && <button className='btn-back' onClick={handleReturn}><AiOutlineArrowLeft /></button>}
             <button className='btn-close' onClick={handleModalClose}><AiOutlineClose /></button>
           </div>
           <Inputfield 
