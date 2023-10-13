@@ -42,6 +42,7 @@
 }
 
 .modal-bottom button, .modal-bottom-left {
+    background-color: #fff;
     padding: 10px 20px;
     text-align: center;
     border: 1px solid var(--light-border-color);
@@ -83,12 +84,16 @@
 }
 
 .list-supplier {
-    padding: 12px 8px;
+    padding: 12px;
     border-bottom: 1px solid var(--light-border-color);
     
     &:hover {
         background-color: var(--blue-hover);
     }
+}
+
+.list-product {
+    padding: 20px 12px;
 }
 
 .list-container-supplier {

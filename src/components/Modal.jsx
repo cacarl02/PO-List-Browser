@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { AiOutlineClose, AiOutlineRight } from 'react-icons/ai'
-import { FaMagnifyingGlass } from 'react-icons/fa6'
+import { AiOutlineClose } from 'react-icons/ai'
 import './modal.css'
 import supplierData from '../suppliers.json'
 import productData from '../products.json'
+import Inputfield from './Inputfield'
+import SuppliersData from './SuppliersData'
+import ProductsData from './ProductsData'
 
 
 function Modal(props) {
@@ -15,22 +17,29 @@ function Modal(props) {
   const [filteredData, setFilteredData] = useState(supplierData)
 
   const handleSupplierClick = (name) => {
-    setTitle(name)
+    if(isProductClose) {
+      setTitle(name)
+    }
     setIsProductClose(false)
     setSearchText('')
-    setFilteredData(supplierData)
+    setFilteredData(productData.data)
+  }
+
+  const handleProductClick = () => {
+    
   }
   const handleModalClose = () => {
     setIsModalOpen(false)
     setTitle(null)
     setIsProductClose(true)
     setSearchText('')
+    setFilteredData(supplierData)
   }
   const handleSearchInput = (e) => {
     const inputText = e.target.value
     setSearchText(inputText)
-    const filtered = supplierData.filter((supplier) =>
-    supplier.name.toLowerCase().includes(inputText.toLowerCase()))
+    const filtered = (isProductClose ? supplierData : productData.data).filter((obj) =>
+    obj.name.toLowerCase().includes(inputText.toLowerCase()))
     setFilteredData(filtered)
   }
 
@@ -43,42 +52,21 @@ function Modal(props) {
             <div className=''>{title ? title : 'Browse'}</div>
             <button className='btn-close' onClick={handleModalClose}><AiOutlineClose /></button>
           </div>
-          <div className='search-container'>
-            <input
-              type='text'
-              placeholder='Search supplier'
-              className='search-input'
-              value={searchText}
-              onChange={handleSearchInput}
-            />
-            <span className='input-glass'><FaMagnifyingGlass /></span>
-          </div>
-          <div className='list-container'>
-            { isProductClose ?
-            filteredData.map((supplier) => (
-              <div
-                key={supplier.id}
-                onClick={() => handleSupplierClick(supplier.name)}
-                className='list-supplier'
-              >
-                <div className='list-container-supplier'>
-                  <span>{supplier.name}</span>
-                  <span className='arrow-dropdown'><AiOutlineRight /></span>
-                </div>
-              </div>
-            )) : 
-            productData.data.map((product) => (
-              <div
-                key={product.id}
-              >
-                <div>
-                  <span>{product.name}</span>
-                  <span><AiOutlineRight /></span>
-                </div>
-              </div>
-            ))
-            }
-          </div>
+          <Inputfield 
+            placeholder={isProductClose ? 'Search supplier' : 'Search product'}
+            searchText={searchText}
+            handleSearchInput={handleSearchInput}
+          />
+          {isProductClose ?
+          <SuppliersData 
+            filteredData={filteredData}
+            handleSupplierClick={handleSupplierClick}
+          /> : 
+          <ProductsData 
+            filteredData={filteredData}
+            handleProductClick={handleProductClick}
+          />
+          }
           <div className='modal-bottom'>
             <div className='modal-bottom-left'>0 Product selected</div>
             <div className='modal-bottom-right'>
