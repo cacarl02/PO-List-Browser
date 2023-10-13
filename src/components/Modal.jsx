@@ -10,57 +10,82 @@ function Modal(props) {
   const { isModalOpen, setIsModalOpen } = props
 
   const [title, setTitle] = useState(null)
+  const [isProductClose, setIsProductClose] = useState(true)
+  const [searchText, setSearchText] = useState('')
+  const [filteredData, setFilteredData] = useState(supplierData)
 
   const handleSupplierClick = (name) => {
     setTitle(name)
     setIsProductClose(false)
+    setSearchText('')
+    setFilteredData(supplierData)
   }
   const handleModalClose = () => {
     setIsModalOpen(false)
     setTitle(null)
     setIsProductClose(true)
+    setSearchText('')
   }
-
-  const [isProductClose, setIsProductClose] = useState(true)
+  const handleSearchInput = (e) => {
+    const inputText = e.target.value
+    setSearchText(inputText)
+    const filtered = supplierData.filter((supplier) =>
+    supplier.name.toLowerCase().includes(inputText.toLowerCase()))
+    setFilteredData(filtered)
+  }
 
   return (
     <div>
       {isModalOpen && 
       <div className='modal'>
-        <div className="overlay" onClick={handleModalClose}></div>
-        <div className='modal-content'>
-          <h2>{title ? title : 'Browse'}</h2>
-          <div>
+        <div className='modal-container'>
+          <div className='modal-top'>
+            <div className=''>{title ? title : 'Browse'}</div>
+            <button className='btn-close' onClick={handleModalClose}><AiOutlineClose /></button>
+          </div>
+          <div className='search-container'>
             <input
               type='text'
               placeholder='Search supplier'
+              className='search-input'
+              value={searchText}
+              onChange={handleSearchInput}
             />
-            <FaMagnifyingGlass />
+            <span className='input-glass'><FaMagnifyingGlass /></span>
           </div>
-          { isProductClose ?
-          supplierData.map((supplier) => (
-            <div
-              key={supplier.id}
-              onClick={() => handleSupplierClick(supplier.name)}
-            >
-              <div>
-                <span>{supplier.name}</span>
-                <span><AiOutlineRight /></span>
+          <div className='list-container'>
+            { isProductClose ?
+            filteredData.map((supplier) => (
+              <div
+                key={supplier.id}
+                onClick={() => handleSupplierClick(supplier.name)}
+                className='list-supplier'
+              >
+                <div className='list-container-supplier'>
+                  <span>{supplier.name}</span>
+                  <span className='arrow-dropdown'><AiOutlineRight /></span>
+                </div>
               </div>
-            </div>
-          )) : 
-          productData.data.map((product) => (
-            <div
-              key={product.id}
-            >
-              <div>
-                <span>{product.name}</span>
-                <span><AiOutlineRight /></span>
+            )) : 
+            productData.data.map((product) => (
+              <div
+                key={product.id}
+              >
+                <div>
+                  <span>{product.name}</span>
+                  <span><AiOutlineRight /></span>
+                </div>
               </div>
+            ))
+            }
+          </div>
+          <div className='modal-bottom'>
+            <div className='modal-bottom-left'>0 Product selected</div>
+            <div className='modal-bottom-right'>
+              <button>CANCEL</button>
+              <button>ADD</button>
             </div>
-          ))
-          }
-          <button className='btn-close' onClick={handleModalClose}><AiOutlineClose /></button>
+          </div>
         </div>
       </div>
       }

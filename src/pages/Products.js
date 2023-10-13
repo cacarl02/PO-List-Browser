@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { FaMagnifyingGlass } from 'react-icons/fa6'
-import Modal from '../components/Modal.jsx'
+import Modal from '../components/Modal'
 
 function Products() {
   const [isModalOpen, setIsModalOpen] = useState(false)
