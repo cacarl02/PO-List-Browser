@@ -1,29 +1,28 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-function ProductChildren({ productIdMatch, data}) {
-    const [selectedItems, setSelectedItems] = useState([])
-
+function ProductChildren({ productIdMatch, data, selectedItems, updateSelectedItems }) {
+  
     const handleCheckboxChange = (childId) => {
-        setSelectedItems((prevSelectedItems) => {
-          if (prevSelectedItems.some((item) => item.id === childId)) {
-            // Uncheck the checkbox and remove the item
-            return prevSelectedItems.filter((item) => item.id !== childId);
-          } else {
-            // Check the checkbox and add the item
-            const child = data.childProducts.find((child) => child.id === childId);
-            return [...prevSelectedItems, { ...child, quantity: 1 }];
-          }
-        });
-      };
-    
-      const handleQuantityChange = (childId, quantity) => {
-        setSelectedItems((prevSelectedItems) =>
-          prevSelectedItems.map((item) =>
-            item.id === childId ? { ...item, quantity: quantity } : item
-          )
-        );
-      };
-      console.log(selectedItems)
+      updateSelectedItems((prevSelectedItems) => {
+        if (prevSelectedItems.some((item) => item.id === childId)) {
+          // Uncheck the checkbox and remove the item
+          return prevSelectedItems.filter((item) => item.id !== childId);
+        } else {
+          // Check the checkbox and add the item
+          const child = data.childProducts.find((child) => child.id === childId);
+          return [...prevSelectedItems, { ...child, quantity: 1 }];
+        }
+      });
+    };
+
+    const handleQuantityChange = (childId, quantity) => {
+      updateSelectedItems((prevSelectedItems) =>
+        prevSelectedItems.map((item) =>
+          item.id === childId ? { ...item, quantity: quantity } : item
+        )
+      );
+    };
+
     return (
         <>
             {productIdMatch && 

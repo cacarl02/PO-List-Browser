@@ -3,7 +3,8 @@ import { AiOutlineRight } from 'react-icons/ai'
 import Avatar from 'boring-avatars'
 import ProductChildren from './ProductChildren'
 
-function ProductsData({ filteredData }) {
+function ProductsData({ filteredData, selectedItems, updateSelectedItems }) {
+
     const [clickedProduct, setClickedProduct] = useState([])
     const handleProductClick = (data) => {
         if(clickedProduct === data) {
@@ -45,6 +46,8 @@ function ProductsData({ filteredData }) {
                 <ProductChildren 
                     productIdMatch={productIdMatch}
                     data={data}
+                    selectedItems={selectedItems}
+                    updateSelectedItems={updateSelectedItems}
                 />
             </div>
             )

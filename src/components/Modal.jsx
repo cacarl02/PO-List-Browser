@@ -6,6 +6,7 @@ import productData from '../products.json'
 import Inputfield from './Inputfield'
 import SuppliersData from './SuppliersData'
 import ProductsData from './ProductsData'
+import SelectedItemsData from './SelectedItemsData'
 
 
 function Modal(props) {
@@ -15,6 +16,12 @@ function Modal(props) {
   const [isProductClose, setIsProductClose] = useState(true)
   const [searchText, setSearchText] = useState('')
   const [filteredData, setFilteredData] = useState(supplierData)
+
+  const [selectedItems, setSelectedItems] = useState([])
+  const [selectedItemsClosed, setSelectedItemsClosed] = useState(true)
+  const updateSelectedItems = (newSelectedItems) => {
+    setSelectedItems(newSelectedItems)
+  }
 
   const handleSupplierClick = (name) => {
     if(isProductClose) {
@@ -31,12 +38,16 @@ function Modal(props) {
     setTitle(null)
     setSearchText('')
     setFilteredData(supplierData)
+    setSelectedItems([])
   }
   const handleReturn = () => {
     setIsProductClose(true)
     setTitle(null)
     setSearchText('')
     setFilteredData(supplierData)
+  }
+  const checkSelectedItems = () => {
+    setSelectedItemsClosed(false)
   }
   const handleSearchInput = (e) => {
     const inputText = e.target.value
@@ -53,7 +64,8 @@ function Modal(props) {
         <div className='modal-container'>
           <div className='modal-top'>
             <div className=''>{title ? title : 'Browse'}</div>
-            { !isProductClose && <button className='btn-back' onClick={handleReturn}><AiOutlineArrowLeft /></button>}
+            { !isProductClose && !selectedItems.length && <button className='btn-back' onClick={handleReturn}><AiOutlineArrowLeft /></button>}
+            { !selectedItemsClosed && <button className='btn-back' onClick={()=> setSelectedItemsClosed(true)}><AiOutlineArrowLeft /></button>}
             <button className='btn-close' onClick={handleModalClose}><AiOutlineClose /></button>
           </div>
           <Inputfield 
@@ -65,16 +77,30 @@ function Modal(props) {
           <SuppliersData 
             filteredData={filteredData}
             handleSupplierClick={handleSupplierClick}
-          /> : 
+          /> : selectedItemsClosed ?
           <ProductsData 
             filteredData={filteredData}
+            selectedItems={selectedItems}
+            updateSelectedItems={updateSelectedItems}
+          /> :
+          <SelectedItemsData 
+            selectedItems={selectedItems}
           />
           }
           <div className='modal-bottom'>
-            <div className='modal-bottom-left'>0 Product selected</div>
+            <button 
+              className='modal-bottom-left'
+              onClick={checkSelectedItems}
+              disabled={selectedItems.length === 0}
+            >
+              {selectedItems.length} Product{selectedItems.length > 1 ? 's' : ''} selected
+            </button>
             <div className='modal-bottom-right'>
               <button>CANCEL</button>
-              <button>ADD</button>
+              <button
+                disabled={selectedItems.length === 0}
+              >ADD
+              </button>
             </div>
           </div>
         </div>
