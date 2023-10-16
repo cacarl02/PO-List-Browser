@@ -25,9 +25,6 @@ function Modal(props) {
     setFilteredData(productData.data)
   }
 
-  const handleProductClick = () => {
-
-  }
   const handleModalClose = () => {
     setIsModalOpen(false)
     setIsProductClose(true)
@@ -71,7 +68,6 @@ function Modal(props) {
           /> : 
           <ProductsData 
             filteredData={filteredData}
-            handleProductClick={handleProductClick}
           />
           }
           <div className='modal-bottom'>
