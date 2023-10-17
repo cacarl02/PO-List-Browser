@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Avatar from 'boring-avatars'
 import { FiTrash2 } from 'react-icons/fi'
 
-function SelectedItemsData({ selectedItems, updateSelectedItems }) {
-
-  const handleDeleteItems = (itemId) => {
-    updateSelectedItems(selectedItems.filter(item => item.id !== itemId))
+function SelectedItemsData({ selectedItems, updateSelectedItems, notifyDeleteItem, updateDeletedItems }) {
+  const handleDeleteItems = (selectedItem) => {
+    updateSelectedItems(selectedItems.filter(item => item.id !== selectedItem.id))
+    notifyDeleteItem(selectedItem)
   }
+
+  useEffect(() => {
+    if(selectedItems.length < 1) {
+      updateDeletedItems()
+    }
+  })
 
   return (
     <div className='list-container'>
@@ -29,7 +35,7 @@ function SelectedItemsData({ selectedItems, updateSelectedItems }) {
             </div>
             <div>
               <input type="number" value={item.quantity} readOnly={true} />
-              <button onClick={() => handleDeleteItems(item.id)} className='btn-trash'><FiTrash2 /></button>
+              <button onClick={() => handleDeleteItems(item)} className='btn-trash'><FiTrash2 /></button>
             </div>
           </div>
         ))}

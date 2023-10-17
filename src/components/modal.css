@@ -106,7 +106,7 @@
 }
 
 .product-clicked {
-    background-color: var(--light-border-color);
+    background-color: rgb(241 245 249);
 }
 .product-clicked .arrow-dropdown {
     transform: rotate(90deg);

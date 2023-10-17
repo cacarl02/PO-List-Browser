@@ -7,9 +7,20 @@ import Inputfield from './Inputfield'
 import SuppliersData from './SuppliersData'
 import ProductsData from './ProductsData'
 import SelectedItemsData from './SelectedItemsData'
+import { toast } from 'react-toastify';
 
 
 function Modal(props) {
+
+  const notifyDeleteItem = (items) => {
+    toast.success(`Deleted ${items.sku} successfully.`)
+  }
+
+  const notifyAddAllItems = (items) => {
+    const selectedItemsSku = items.map(item => item.sku)
+    const joinedItems = selectedItemsSku.join(', ')
+    toast.success(`Added ${joinedItems} successfully.`)
+  }
   const { isModalOpen, setIsModalOpen } = props
 
   const [title, setTitle] = useState(null)
@@ -19,8 +30,12 @@ function Modal(props) {
 
   const [selectedItems, setSelectedItems] = useState([])
   const [selectedItemsClosed, setSelectedItemsClosed] = useState(true)
+
   const updateSelectedItems = (newSelectedItems) => {
     setSelectedItems(newSelectedItems)
+  }
+  const updateDeletedItems = () => {
+    setSelectedItemsClosed(true)
   }
 
   const handleSupplierClick = (name) => {
@@ -39,6 +54,7 @@ function Modal(props) {
     setSearchText('')
     setFilteredData(supplierData)
     setSelectedItems([])
+    setSelectedItemsClosed(true)
   }
   const handleReturn = () => {
     setIsProductClose(true)
@@ -68,11 +84,11 @@ function Modal(props) {
             { !selectedItemsClosed && <button className='btn-back' onClick={()=> setSelectedItemsClosed(true)}><AiOutlineArrowLeft /></button>}
             <button className='btn-close' onClick={handleModalClose}><AiOutlineClose /></button>
           </div>
-          <Inputfield 
+          {selectedItemsClosed && <Inputfield 
             placeholder={isProductClose ? 'Search supplier' : 'Search product'}
             searchText={searchText}
             handleSearchInput={handleSearchInput}
-          />
+          />}
           {isProductClose ?
           <SuppliersData 
             filteredData={filteredData}
@@ -82,10 +98,13 @@ function Modal(props) {
             filteredData={filteredData}
             selectedItems={selectedItems}
             updateSelectedItems={updateSelectedItems}
+            setSelectedItemsClosed={setSelectedItemsClosed}
           /> :
           <SelectedItemsData 
             selectedItems={selectedItems}
             updateSelectedItems={updateSelectedItems}
+            notifyDeleteItem={notifyDeleteItem}
+            updateDeletedItems={updateDeletedItems}
           />
           }
           <div className='modal-bottom'>
@@ -100,6 +119,7 @@ function Modal(props) {
               <button>CANCEL</button>
               <button
                 disabled={selectedItems.length === 0}
+                onClick={() => notifyAddAllItems(selectedItems)}
               >ADD
               </button>
             </div>
