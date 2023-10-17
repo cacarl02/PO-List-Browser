@@ -10,7 +10,7 @@ function ProductChildren({ productIdMatch, data, selectedItems, updateSelectedIt
         } else {
           // Check the checkbox and add the item
           const child = data.childProducts.find((child) => child.id === childId);
-          return [...prevSelectedItems, { ...child, quantity: 1 }];
+          return [...prevSelectedItems, { ...child, productName: data.name, quantity: 1 }];
         }
       });
     };

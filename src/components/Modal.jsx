@@ -85,6 +85,7 @@ function Modal(props) {
           /> :
           <SelectedItemsData 
             selectedItems={selectedItems}
+            updateSelectedItems={updateSelectedItems}
           />
           }
           <div className='modal-bottom'>

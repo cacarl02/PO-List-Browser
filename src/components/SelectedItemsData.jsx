@@ -2,7 +2,12 @@ import React from 'react'
 import Avatar from 'boring-avatars'
 import { FiTrash2 } from 'react-icons/fi'
 
-function SelectedItemsData({ selectedItems }) {
+function SelectedItemsData({ selectedItems, updateSelectedItems }) {
+
+  const handleDeleteItems = (itemId) => {
+    updateSelectedItems(selectedItems.filter(item => item.id !== itemId))
+  }
+
   return (
     <div className='list-container'>
       {selectedItems.map((item) => (
@@ -18,13 +23,13 @@ function SelectedItemsData({ selectedItems }) {
               />
               <div className='product-name'>
                   <span>{item.sku}</span>
-                  <span>{item.id}</span>
+                  <span>{item.productName}</span>
                   <span>{item.name}</span>
               </div>
             </div>
             <div>
               <input type="number" value={item.quantity} readOnly={true} />
-              <FiTrash2 />
+              <button onClick={() => handleDeleteItems(item.id)} className='btn-trash'><FiTrash2 /></button>
             </div>
           </div>
         ))}
