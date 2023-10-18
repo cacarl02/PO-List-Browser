@@ -29,7 +29,7 @@ function ProductChildren({ productIdMatch, data, selectedItems, updateSelectedIt
             <div className='product-children'>
                 {data.childProducts.map((child) => (
                     <label key={child.id}>
-                        <div className='product-child'>
+                        <div className={`product-child${selectedItems.some((item) => item.id === child.id) ? ' clicked' : ''}`}>
                             <div className='product-child-left'>
                                 <input 
                                     id={`check-${child.id}`} 

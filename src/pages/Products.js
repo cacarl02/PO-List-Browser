@@ -15,10 +15,9 @@ function Products() {
         />
       <FaMagnifyingGlass />
       </div>
-      <Modal
-        isModalOpen={isModalOpen}
+      {isModalOpen && <Modal
         setIsModalOpen={setIsModalOpen}
-      />
+      />}
     </div>
   )
 }

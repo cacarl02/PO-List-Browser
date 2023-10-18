@@ -27,19 +27,17 @@ function ProductsData({ filteredData, selectedItems, updateSelectedItems }) {
                     className='list-product'
                     onClick={() => handleProductClick(data)}
                 >
-                    <div className='name-avatar-container'>
-                        <Avatar
-                            className="avatar"
-                            size={32}
-                            name={data.name}
-                            square={true}
-                            variant="marble"
-                            colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]}
-                        />
-                        <div className='product-name'>
-                            <span>{data.name}</span>
-                            <span>{data.supplierId}</span>
-                        </div>
+                    <Avatar
+                        className="avatar"
+                        size={40}
+                        name={data.name}
+                        square={true}
+                        variant="marble"
+                        colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]}
+                    />
+                    <div className='product-name'>
+                        <div>{data.name}</div>
+                        <div>SKU: {data.supplierId}</div>
                     </div>
                     <span className='arrow-dropdown'><AiOutlineRight /></span>
                 </div>

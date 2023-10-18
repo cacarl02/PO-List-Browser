@@ -10,18 +10,35 @@ import SelectedItemsData from './SelectedItemsData'
 import { toast } from 'react-toastify';
 
 
-function Modal(props) {
+function Modal({ setIsModalOpen }) {
 
-  const notifyDeleteItem = (items) => {
-    toast.success(`Deleted ${items.sku} successfully.`)
+  // for toast add, delete, and undo functions
+  const undoDeletedItem = (item) => {
+    updateSelectedItems((prevSelectedItems) => {
+      return [...prevSelectedItems, item]
+    })
   }
-
-  const notifyAddAllItems = (items) => {
+  const deleteItem = (item) => {
+    toast.success(
+      <div>
+        <div>
+          Deleted <strong>SKU: {item.sku}</strong> successfully.
+        </div>
+          <button onClick={() => undoDeletedItem(item)}>Undo</button>
+      </div>
+    )
+  }
+  const addAllItems = (items) => {
     const selectedItemsSku = items.map(item => item.sku)
     const joinedItems = selectedItemsSku.join(', ')
-    toast.success(`Added ${joinedItems} successfully.`)
+    toast.success(
+      <p>
+        Add <strong>{joinedItems}</strong> for {title} successfully.
+      </p>
+    )
+    console.log(title, items)
+    handleModalClose()
   }
-  const { isModalOpen, setIsModalOpen } = props
 
   const [title, setTitle] = useState(null)
   const [isProductClose, setIsProductClose] = useState(true)
@@ -74,59 +91,55 @@ function Modal(props) {
   }
 
   return (
-    <div>
-      {isModalOpen && 
-      <div className='modal'>
-        <div className='modal-container'>
-          <div className='modal-top'>
-            <div className=''>{title ? title : 'Browse'}</div>
-            { !isProductClose && !selectedItems.length && <button className='btn-back' onClick={handleReturn}><AiOutlineArrowLeft /></button>}
-            { !selectedItemsClosed && <button className='btn-back' onClick={()=> setSelectedItemsClosed(true)}><AiOutlineArrowLeft /></button>}
-            <button className='btn-close' onClick={handleModalClose}><AiOutlineClose /></button>
-          </div>
-          {selectedItemsClosed && <Inputfield 
-            placeholder={isProductClose ? 'Search supplier' : 'Search product'}
-            searchText={searchText}
-            handleSearchInput={handleSearchInput}
-          />}
-          {isProductClose ?
-          <SuppliersData 
-            filteredData={filteredData}
-            handleSupplierClick={handleSupplierClick}
-          /> : selectedItemsClosed ?
-          <ProductsData 
-            filteredData={filteredData}
-            selectedItems={selectedItems}
-            updateSelectedItems={updateSelectedItems}
-            setSelectedItemsClosed={setSelectedItemsClosed}
-          /> :
-          <SelectedItemsData 
-            selectedItems={selectedItems}
-            updateSelectedItems={updateSelectedItems}
-            notifyDeleteItem={notifyDeleteItem}
-            updateDeletedItems={updateDeletedItems}
-          />
-          }
-          <div className='modal-bottom'>
-            <button 
-              className='modal-bottom-left'
-              onClick={checkSelectedItems}
+    <div className='modal'>
+      <div className='modal-container'>
+        <div className='modal-top'>
+          <div className=''>{title ? title : 'Browse'}</div>
+          { !isProductClose && !selectedItems.length && <button className='btn-back' onClick={handleReturn}><AiOutlineArrowLeft /></button>}
+          { !selectedItemsClosed && <button className='btn-back' onClick={()=> setSelectedItemsClosed(true)}><AiOutlineArrowLeft /></button>}
+          <button className='btn-close' onClick={handleModalClose}><AiOutlineClose /></button>
+        </div>
+        {selectedItemsClosed && <Inputfield 
+          placeholder={isProductClose ? 'Search supplier' : 'Search product'}
+          searchText={searchText}
+          handleSearchInput={handleSearchInput}
+        />}
+        {isProductClose ?
+        <SuppliersData 
+          filteredData={filteredData}
+          handleSupplierClick={handleSupplierClick}
+        /> : selectedItemsClosed ?
+        <ProductsData 
+          filteredData={filteredData}
+          selectedItems={selectedItems}
+          updateSelectedItems={updateSelectedItems}
+          setSelectedItemsClosed={setSelectedItemsClosed}
+        /> :
+        <SelectedItemsData 
+          selectedItems={selectedItems}
+          updateSelectedItems={updateSelectedItems}
+          deleteItem={deleteItem}
+          updateDeletedItems={updateDeletedItems}
+        />
+        }
+        <div className='modal-bottom'>
+          <button 
+            className='modal-bottom-left'
+            onClick={checkSelectedItems}
+            disabled={selectedItems.length === 0}
+          >
+            {selectedItems.length} Product{selectedItems.length > 1 ? 's' : ''} selected
+          </button>
+          <div className='modal-bottom-right'>
+            <button onClick={() => handleModalClose()}>CANCEL</button>
+            <button
               disabled={selectedItems.length === 0}
-            >
-              {selectedItems.length} Product{selectedItems.length > 1 ? 's' : ''} selected
+              onClick={() => addAllItems(selectedItems)}
+            >ADD
             </button>
-            <div className='modal-bottom-right'>
-              <button>CANCEL</button>
-              <button
-                disabled={selectedItems.length === 0}
-                onClick={() => notifyAddAllItems(selectedItems)}
-              >ADD
-              </button>
-            </div>
           </div>
         </div>
       </div>
-      }
     </div>
   )
 }

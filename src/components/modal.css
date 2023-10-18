@@ -8,6 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--gray-font-color);
 }
 
 .modal-container {
@@ -30,7 +31,7 @@
 .btn-close {
     position: absolute;
     right: 40px;
-    background-color: #fff;
+    background: none;
     border: none;
 }
 .btn-back {
@@ -40,7 +41,7 @@
     border: 1px solid var(--light-border-color);
 }
 .btn-trash {
-    background-color: #fff;
+    background: none;
     border: none;
 }
 
@@ -51,14 +52,23 @@
     padding: 20px 40px;
     position: relative;
 }
-
 .modal-bottom button, .modal-bottom-left {
     background-color: #fff;
     padding: 10px 20px;
     text-align: center;
-    border: 1px solid var(--light-border-color);
+    border: 1px solid var(--light-gray-color);
 }
 
+.modal-bottom button:not(:disabled), .modal-bottom-left:not(:disabled) {
+    color: var(--gray-font-color);
+}
+.modal-bottom button:disabled:last-child {
+    background-color: var(--gray-hover-color);
+}
+.modal-bottom button:not(:disabled):last-child {
+    background-color: #13274F;
+    color: #fff;
+}
 .modal-bottom button:last-child {
     margin-left: 20px;
 }
@@ -73,11 +83,11 @@
 .search-input {
     padding: 12px 40px;
     flex: 1;
-    border: 1px solid var(--light-border-color);
+    border: 1px solid var(--light-gray-color);
 }
 
 .search-input::placeholder {
-    color: var(--light-border-color);
+    color: var(--light-gray-color);
 }
 
 .input-glass {
@@ -106,17 +116,26 @@
 }
 
 .product-clicked {
-    background-color: rgb(241 245 249);
+    background-color: var(--gray-hover-color);
+}
+.arrow-dropdown {
+    color: var(--light-border-color);
+    transition: transform 0.3s ease;
 }
 .product-clicked .arrow-dropdown {
     transform: rotate(90deg);
+    color: var(--gray-font-color);
 }
 .list-product {
-    padding: 20px 12px 20px 0;
+    padding: 20px 8px 20px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid var(--light-border-color);
+}
+
+.list-product .product-name, .list-selection .product-name {
+    flex: 1;
 }
 
 
@@ -126,8 +145,6 @@
 }
 
 .product-name {
-    display: flex;
-    flex-direction: column;
     margin-left: 20px;
 }
 
@@ -137,7 +154,7 @@
 
 /* media queries */
 @media (max-width: 768px) {
-    .modal-content {
+    .modal-container {
         width: 90%;
     }
 }
@@ -147,24 +164,88 @@
     justify-content: space-between;
     border-bottom: 1px solid var(--light-border-color);
 }
+.product-child.clicked {
+    background-color: #bbdefb;
+}
 .product-child-left {
     display: flex;
     align-items: center;
 }
+
 .product-child input[type='checkbox'] {
     margin: 20px;
+    transform: scale(1.5);
+    accent-color: var(--blue-hover);
 }
+.product-child-name div:last-child, .product-name div:last-child {
+    font-size: 14px;
+    color: var(--light-gray-color);
+}
+.product-child-name, .product-child-left, .product-name, .name-avatar-container {
+    min-width: 0;
+}
+.product-child-name div, .product-name div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .modal input[type='number'] {
     margin: 20px 16px 20px 24px;
     width: 40px;
+    padding: 4px 8px;
     text-align: right;
 }
 
 .list-selection {
-    padding: 20px 0;
+    padding: 20px 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid var(--light-border-color);
+
+    &:hover {
+        background-color: var(--gray-hover-color);
+    }
 }
 
+.list-selection-container {
+    border-top: 1px solid var(--light-border-color);
+    margin-top: 24px;
+    overflow-y: scroll;
+    margin-bottom: auto;
+}
+
+
+
+/* Example CSS to style react-toastify::before */
+
+.Toastify__toast {
+    display: flex;
+    padding: 0 !important;
+    background: #dcedc8;
+}
+.Toastify__toast::before {
+    content: '';
+    width: 10px;
+    background-color: var(--toastify-color-success);
+}
+.Toastify__toast-container {
+    color: black !important;
+    font-weight: 300;
+}
+.Toastify__close-button svg {
+    margin: 20px 20px 0 0;
+    color: black;
+}
+.Toastify__toast-body button {
+    cursor: pointer;
+    background: none;
+    border: 1px solid #7f7f7f;
+}
+.Toastify__toast-body {
+    padding: 20px !important;
+}
+.Toastify__toast-body div:last-child button {
+    margin-top: 10px;
+}

@@ -14,6 +14,8 @@ function App() {
       </BrowserRouter>
       <ToastContainer
         autoClose={3000}
+        theme=''
+        hideProgressBar={true}
       />
     </main>
   );
