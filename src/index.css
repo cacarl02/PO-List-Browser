@@ -12,6 +12,7 @@ body {
   --light-font-color: #7f7f7f;
   --gray-hover-color: #e5e5e5;
   --blue-hover: #2196f3;
+  --light-blue-hover: #bbdefb;
 }
 
 ::-webkit-scrollbar {
