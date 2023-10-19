@@ -41,6 +41,7 @@
     border: 1px solid var(--light-border-color);
 }
 .btn-trash {
+    opacity: 0;
     background: none;
     border: none;
 }
@@ -114,6 +115,9 @@
         background-color: var(--blue-hover);
     }
 }
+.list-supplier.selected {
+    background-color: var(--light-blue-hover);
+}
 
 .product-clicked {
     background-color: var(--gray-hover-color);
@@ -124,6 +128,9 @@
 }
 .product-clicked .arrow-dropdown {
     transform: rotate(90deg);
+    color: var(--gray-font-color);
+}
+.selected .arrow-dropdown {
     color: var(--gray-font-color);
 }
 .list-product {
@@ -165,7 +172,7 @@
     border-bottom: 1px solid var(--light-border-color);
 }
 .product-child.clicked {
-    background-color: #bbdefb;
+    background-color: var(--light-blue-hover);
 }
 .product-child-left {
     display: flex;
@@ -206,6 +213,9 @@
 
     &:hover {
         background-color: var(--gray-hover-color);
+    }
+    &:hover .btn-trash {
+        opacity: 1;
     }
 }
 
@@ -248,4 +258,8 @@
 }
 .Toastify__toast-body div:last-child button {
     margin-top: 10px;
+}
+
+.list-product, .list-supplier, .list-selection, .modal-bottom button:not(:disabled), .product-children label, .btn-close, .btn-back, .btn-trash {
+    cursor: pointer;
 }
