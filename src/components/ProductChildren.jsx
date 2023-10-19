@@ -16,11 +16,13 @@ function ProductChildren({ productIdMatch, data, selectedItems, updateSelectedIt
     };
 
     const handleQuantityChange = (childId, quantity) => {
+      if (quantity.length <= 3) {
       updateSelectedItems((prevSelectedItems) =>
         prevSelectedItems.map((item) =>
           item.id === childId ? { ...item, quantity: quantity } : item
         )
       );
+      }
     };
 
     return (
@@ -45,6 +47,7 @@ function ProductChildren({ productIdMatch, data, selectedItems, updateSelectedIt
                             <input 
                                 id={`number-${child.id}`} 
                                 type='number'
+                                maxLength={3}
                                 onChange={(e) => handleQuantityChange(child.id, e.target.value)}
                                 disabled={!selectedItems.some((item) => item.id === child.id)}
                                 value={selectedItems.find((item) => item.id === child.id)?.quantity || '1'}
