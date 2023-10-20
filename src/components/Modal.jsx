@@ -83,13 +83,34 @@ function Modal({ setIsModalOpen }) {
     setSelectedItemsClosed(false)
   }
 
+  const [productChildFilter, setProductChildFilter] = useState([])
   useEffect(() => {
 
     const filtered = (isProductClose ? supplierData : productData.data).filter((obj) => 
       obj.name.toLowerCase().includes(searchText.toLowerCase())
     )
-
     setFilteredData(filtered)
+
+    const childFiltered = productData.data.filter((obj) => 
+      obj.childProducts.some(childProduct =>
+        childProduct.name.toLowerCase().includes(searchText.toLowerCase()))
+    )
+    
+    if(childFiltered.length === 1) {
+      const matchedChildProducts = childFiltered[0].childProducts.filter(childProduct => 
+        childProduct.name.toLowerCase().includes(searchText.toLowerCase()))
+        const updatedChildFiltered = [...childFiltered];
+        updatedChildFiltered[0] = {
+          ...updatedChildFiltered[0],
+          childProducts: matchedChildProducts
+        };
+      
+        setFilteredData(updatedChildFiltered);
+      
+      } else {
+        setFilteredData(filtered)
+      }
+      
   }, [searchText, isProductClose])
 
   return (
