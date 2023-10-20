@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiOutlineArrowLeft, AiOutlineClose } from 'react-icons/ai'
 import './modal.css'
 import supplierData from '../suppliers.json'
@@ -82,13 +82,15 @@ function Modal({ setIsModalOpen }) {
   const checkSelectedItems = () => {
     setSelectedItemsClosed(false)
   }
-  const handleSearchInput = (e) => {
-    const inputText = e.target.value
-    setSearchText(inputText)
-    const filtered = (isProductClose ? supplierData : productData.data).filter((obj) =>
-    obj.name.toLowerCase().includes(inputText.toLowerCase()))
+
+  useEffect(() => {
+
+    const filtered = (isProductClose ? supplierData : productData.data).filter((obj) => 
+      obj.name.toLowerCase().includes(searchText.toLowerCase())
+    )
+
     setFilteredData(filtered)
-  }
+  }, [searchText, isProductClose])
 
   return (
     <div className='modal'>
@@ -102,7 +104,7 @@ function Modal({ setIsModalOpen }) {
         {selectedItemsClosed && <Inputfield 
           placeholder={isProductClose ? 'Search supplier' : 'Search product'}
           searchText={searchText}
-          handleSearchInput={handleSearchInput}
+          setSearchText={setSearchText}
         />}
         {isProductClose ?
         <SuppliersData 

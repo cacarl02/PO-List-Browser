@@ -1,7 +1,8 @@
 import React from 'react'
 import { FaMagnifyingGlass } from 'react-icons/fa6'
 
-function Inputfield({ placeholder, searchText, handleSearchInput }) {
+function Inputfield({ placeholder, searchText, setSearchText }) {
+
   return (
     <div className='search-container'>
       <input
@@ -9,7 +10,7 @@ function Inputfield({ placeholder, searchText, handleSearchInput }) {
         placeholder={placeholder}
         className='search-input'
         value={searchText}
-        onChange={handleSearchInput}
+        onChange={(e) => setSearchText(e.target.value)}
       />
       <span className='input-glass'><FaMagnifyingGlass /></span>
   </div>

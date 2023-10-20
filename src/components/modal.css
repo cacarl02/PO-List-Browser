@@ -263,3 +263,9 @@
 .list-product, .list-supplier, .list-selection, .modal-bottom button:not(:disabled), .product-children label, .btn-close, .btn-back, .btn-trash {
     cursor: pointer;
 }
+
+.no-items {
+    text-align: center;
+    margin-top: 80px;
+    color: var(--light-gray-color);
+}
