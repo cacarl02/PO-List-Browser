@@ -42,7 +42,10 @@ function SuppliersData({ filteredData, handleSupplierClick }) {
 
   return (
     <div className='list-container'>
-      {filteredData.map((data, index) => (
+      {filteredData.length === 0 ? (
+        <div className='no-items'>No items match your search.</div>
+      ) : 
+      (filteredData.map((data, index) => (
         <div
           key={data.id}
           onClick={() => handleSupplierClick(data.name)}
@@ -51,7 +54,9 @@ function SuppliersData({ filteredData, handleSupplierClick }) {
           <span>{data.name}</span>
           <span className='arrow-dropdown'><AiOutlineRight /></span>
         </div>
-      ))}
+      )))
+
+      }
   </div>
   )
 }

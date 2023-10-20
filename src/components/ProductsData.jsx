@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiOutlineRight } from 'react-icons/ai'
 import Avatar from 'boring-avatars'
 import ProductChildren from './ProductChildren'
@@ -14,15 +14,26 @@ function ProductsData({ filteredData, selectedItems, updateSelectedItems }) {
         }
     }
 
+    useEffect(() => {
+        if (filteredData.length === 1) {
+            setClickedProduct(filteredData[0]);
+        } else {
+            setClickedProduct([])
+        }
+    }, [filteredData]);
+
     return (
     <div className='list-container'>
-        {filteredData.map((data) => {
+        {filteredData.length === 0 ? (
+        <div className='no-items'>No items match your search.</div>
+        ) : 
+        (filteredData.map((data) => {
             const productIdMatch = data.id === clickedProduct.id
             return (
             <div 
                 key={data.id}
                 className={productIdMatch ? 'product-clicked' : ''}
-                >
+            >
                 <div
                     className='list-product'
                     onClick={() => handleProductClick(data)}
@@ -49,7 +60,8 @@ function ProductsData({ filteredData, selectedItems, updateSelectedItems }) {
                 />
             </div>
             )
-        })}
+        }))
+        }
     </div>
   )
 }
