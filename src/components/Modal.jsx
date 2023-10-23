@@ -90,14 +90,15 @@ function Modal({ setIsModalOpen }) {
     )
     setFilteredData(filtered)
 
-    const childFiltered = productData.data.filter((obj) => 
+    if(!isProductClose) {
+      const childFiltered = productData.data.filter((obj) => 
       obj.childProducts.some(childProduct =>
-        childProduct.name.toLowerCase().includes(searchText.toLowerCase()))
+        childProduct.sku.toLowerCase().includes(searchText.toLowerCase()))
     )
     
     if(childFiltered.length === 1) {
       const matchedChildProducts = childFiltered[0].childProducts.filter(childProduct => 
-        childProduct.name.toLowerCase().includes(searchText.toLowerCase()))
+        childProduct.sku.toLowerCase().includes(searchText.toLowerCase()))
         const updatedChildFiltered = [...childFiltered];
         updatedChildFiltered[0] = {
           ...updatedChildFiltered[0],
@@ -109,6 +110,9 @@ function Modal({ setIsModalOpen }) {
       } else {
         setFilteredData(filtered)
       }
+    }
+
+    
       
   }, [searchText, isProductClose])
 
