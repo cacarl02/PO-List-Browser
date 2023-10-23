@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FaMagnifyingGlass } from 'react-icons/fa6'
 import Modal from '../components/Modal'
+import './products.css'
 
 function Products() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -17,16 +18,21 @@ function Products() {
     setIsModalOpen(!isModalOpen);
       browseButtonRef.current.blur(); // Remove focus from the "Browse" button when closing the modal.
   };
+  console.log(isModalOpen)
 
   return (
-    <div>
-      <div>Product Search</div>
-      <button onClick={handleBrowseButtonClick} ref={browseButtonRef}>Browse</button>
-      <div>
+    <div className='main-container'>
+      <div className='main-top'>
+        <div style={{fontSize: 20}}>Product Search</div>
+        <button className='btn-browse' onClick={handleBrowseButtonClick} ref={browseButtonRef}>Browse</button>
+      </div>
+      <div className='main-search-container'>
         <input
           type='text'
+          placeholder='Search by SKU or Product'
+          className='search-input'
         />
-      <FaMagnifyingGlass />
+        <span className='input-glass'><FaMagnifyingGlass /></span>
       </div>
       {isModalOpen && <Modal
         setIsModalOpen={setIsModalOpen}

@@ -15,7 +15,7 @@
     background-color: #fff;
     border-radius: 8px;
     width: 600px;
-    height: 600px;
+    height: 670px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -25,7 +25,7 @@
     padding-top: 20px;
     font-size: 20px;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 56px;
     position: relative;
 }
 .btn-close {
@@ -33,17 +33,13 @@
     right: 40px;
     background: none;
     border: none;
+    font-size: 16px;
 }
 .btn-back {
     position: absolute;
     left: 40px;
-    background-color: #fff;
+    background:none;
     border: 1px solid var(--light-border-color);
-}
-.btn-trash {
-    opacity: 0;
-    background: none;
-    border: none;
 }
 
 .modal-bottom {
@@ -55,7 +51,7 @@
 }
 .modal-bottom button, .modal-bottom-left {
     background-color: #fff;
-    padding: 10px 20px;
+    padding: 12px 24px;
     text-align: center;
     border: 1px solid var(--light-gray-color);
 }
@@ -134,7 +130,7 @@
     color: var(--gray-font-color);
 }
 .list-product {
-    padding: 20px 8px 20px 0;
+    padding-right: 12px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -150,11 +146,12 @@
     display: flex;
     align-items: center;
 }
-
-.product-name {
-    margin-left: 20px;
+.list-selection .avatar {
+    margin: 20px;
 }
-
+.list-product .avatar {
+    margin: 20px 20px 20px 0;
+}
 .list-supplier:hover span {
     color: white;
 }
@@ -203,9 +200,14 @@
     padding: 4px 8px;
     text-align: right;
 }
+.btn-trash {
+    opacity: 0;
+    background: none;
+    border: none;
+}
 
 .list-selection {
-    padding: 20px 40px;
+    padding: 0px 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -225,7 +227,9 @@
     overflow-y: scroll;
     margin-bottom: auto;
 }
-
+.list-selection-number {
+    margin-right: 12px;
+}
 
 
 /* Example CSS to style react-toastify::before */
