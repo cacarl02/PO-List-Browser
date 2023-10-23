@@ -83,7 +83,6 @@ function Modal({ setIsModalOpen }) {
     setSelectedItemsClosed(false)
   }
 
-  const [productChildFilter, setProductChildFilter] = useState([])
   useEffect(() => {
 
     const filtered = (isProductClose ? supplierData : productData.data).filter((obj) => 
@@ -117,7 +116,7 @@ function Modal({ setIsModalOpen }) {
     <div className='modal'>
       <div className='modal-container'>
         <div className='modal-top'>
-          <div className=''>{title ? title : 'Browse'}</div>
+          <div>{title ? title : 'Browse'}</div>
           { !isProductClose && !selectedItems.length && <button className='btn-back' onClick={handleReturn}><AiOutlineArrowLeft /></button>}
           { !selectedItemsClosed && <button className='btn-back' onClick={()=> setSelectedItemsClosed(true)}><AiOutlineArrowLeft /></button>}
           <button className='btn-close' onClick={handleModalClose}><AiOutlineClose /></button>

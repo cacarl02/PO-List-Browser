@@ -38,14 +38,15 @@ function ProductsData({ filteredData, selectedItems, updateSelectedItems }) {
                     className='list-product'
                     onClick={() => handleProductClick(data)}
                 >
-                    <Avatar
-                        className="avatar"
-                        size={40}
-                        name={data.name}
-                        square={true}
-                        variant="marble"
-                        colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]}
-                    />
+                    <div className="avatar">
+                        <Avatar
+                            size={48}
+                            name={data.name}
+                            square={true}
+                            variant="marble"
+                            colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]}
+                        />
+                    </div>
                     <div className='product-name'>
                         <div>{data.name}</div>
                         <div>SKU: {data.supplierId}</div>
