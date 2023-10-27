@@ -10,7 +10,7 @@ import SelectedItemsData from './SelectedItemsData'
 import { toast } from 'react-toastify';
 
 
-function Modal({ isModalOpen, setIsModalOpen }) {
+function Modal({ isModalOpen, setIsModalOpen, selectedItems, setSelectedItems }) {
 
   // for toast add, delete, and undo functions
   const undoDeletedItem = (item) => {
@@ -44,8 +44,6 @@ function Modal({ isModalOpen, setIsModalOpen }) {
   const [isProductClose, setIsProductClose] = useState(true)
   const [searchText, setSearchText] = useState('')
   const [filteredData, setFilteredData] = useState([])
-
-  const [selectedItems, setSelectedItems] = useState([])
   const [selectedItemsClosed, setSelectedItemsClosed] = useState(true)
 
   const updateSelectedItems = (newSelectedItems) => {

@@ -5,6 +5,7 @@ import './products.css'
 
 function Products() {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedItems, setSelectedItems] = useState([])
   const modalRef = useRef(null)
   const browseButtonRef = useRef(null)
 
@@ -23,7 +24,10 @@ function Products() {
     <div className='main-container'>
       <div className='main-top'>
         <div style={{fontSize: 20}}>Product Search</div>
-        <button className='btn-browse' onClick={handleBrowseButtonClick} ref={browseButtonRef}>Browse</button>
+        <div className='btn-browse' onClick={handleBrowseButtonClick} ref={browseButtonRef}>
+          <span>Browse</span>
+          {selectedItems.length > 0 && !isModalOpen && <span className='notif-count'>{selectedItems.length}</span>}
+        </div>
       </div>
       <div className='main-search-container'>
         <input
@@ -38,6 +42,8 @@ function Products() {
           refs={modalRef} 
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
+          selectedItems={selectedItems}
+          setSelectedItems={setSelectedItems}
         />
       </div>
     </div>
