@@ -18,7 +18,6 @@ function Products() {
     setIsModalOpen(!isModalOpen);
       browseButtonRef.current.blur(); // Remove focus from the "Browse" button when closing the modal.
   };
-  console.log(isModalOpen)
 
   return (
     <div className='main-container'>
@@ -34,10 +33,13 @@ function Products() {
         />
         <span className='input-glass'><FaMagnifyingGlass /></span>
       </div>
-      {isModalOpen && <Modal
-        setIsModalOpen={setIsModalOpen}
-        refs={modalRef}
-      />}
+      <div className={isModalOpen ? '' : 'hidden'}>
+        <Modal
+          refs={modalRef} 
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+        />
+      </div>
     </div>
   )
 }

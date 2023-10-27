@@ -3,7 +3,6 @@ import { AiOutlineRight } from 'react-icons/ai'
 
 function SuppliersData({ filteredData, handleSupplierClick }) {
   const [selectedItem, setSelectedItem] = useState(-1);
-  console.log(filteredData)
 
   // Handle arrow key presses to move the selection.
   const handleKeyDown = (e) => {

@@ -10,7 +10,7 @@ import SelectedItemsData from './SelectedItemsData'
 import { toast } from 'react-toastify';
 
 
-function Modal({ setIsModalOpen }) {
+function Modal({ isModalOpen, setIsModalOpen }) {
 
   // for toast add, delete, and undo functions
   const undoDeletedItem = (item) => {
@@ -37,13 +37,13 @@ function Modal({ setIsModalOpen }) {
       </p>
     )
     console.log(title, items)
-    handleModalClose()
+    handleResetChanges()
   }
 
   const [title, setTitle] = useState(null)
   const [isProductClose, setIsProductClose] = useState(true)
   const [searchText, setSearchText] = useState('')
-  const [filteredData, setFilteredData] = useState(supplierData)
+  const [filteredData, setFilteredData] = useState([])
 
   const [selectedItems, setSelectedItems] = useState([])
   const [selectedItemsClosed, setSelectedItemsClosed] = useState(true)
@@ -64,7 +64,7 @@ function Modal({ setIsModalOpen }) {
     setFilteredData(productData.data)
   }
 
-  const handleModalClose = () => {
+  const handleResetChanges = () => {
     setIsModalOpen(false)
     setIsProductClose(true)
     setTitle(null)
@@ -79,8 +79,14 @@ function Modal({ setIsModalOpen }) {
     setSearchText('')
     setFilteredData(supplierData)
   }
-  const checkSelectedItems = () => {
-    setSelectedItemsClosed(false)
+  const handleSelectedItemReturn = () => {
+    setSelectedItemsClosed(true)
+    setSearchText('')
+  }
+  const handleHideModal = () => {
+    setIsModalOpen(false)
+    setSearchText('')
+    if(selectedItems) setSelectedItemsClosed(true)
   }
 
   useEffect(() => {
@@ -114,7 +120,7 @@ function Modal({ setIsModalOpen }) {
 
     
       
-  }, [searchText, isProductClose])
+  }, [searchText, isModalOpen])
 
   return (
     <div className='modal'>
@@ -122,8 +128,8 @@ function Modal({ setIsModalOpen }) {
         <div className='modal-top'>
           <div>{title ? title : 'Browse'}</div>
           { !isProductClose && !selectedItems.length && <button className='btn-back' onClick={handleReturn}><AiOutlineArrowLeft /></button>}
-          { !selectedItemsClosed && <button className='btn-back' onClick={()=> setSelectedItemsClosed(true)}><AiOutlineArrowLeft /></button>}
-          <button className='btn-close' onClick={handleModalClose}><AiOutlineClose /></button>
+          { !selectedItemsClosed && <button className='btn-back' onClick={handleSelectedItemReturn}><AiOutlineArrowLeft /></button>}
+          <button className='btn-close' onClick={handleHideModal}><AiOutlineClose /></button>
         </div>
         {selectedItemsClosed && <Inputfield 
           placeholder={isProductClose ? 'Search supplier' : 'Search product'}
@@ -151,13 +157,13 @@ function Modal({ setIsModalOpen }) {
         <div className='modal-bottom'>
           <button 
             className='modal-bottom-left'
-            onClick={checkSelectedItems}
+            onClick={() => setSelectedItemsClosed(false)}
             disabled={selectedItems.length === 0}
           >
             {selectedItems.length} Product{selectedItems.length > 1 ? 's' : ''} selected
           </button>
           <div className='modal-bottom-right'>
-            <button onClick={() => handleModalClose()}>CANCEL</button>
+            <button onClick={() => handleResetChanges()}>CANCEL</button>
             <button
               disabled={selectedItems.length === 0}
               onClick={() => addAllItems(selectedItems)}

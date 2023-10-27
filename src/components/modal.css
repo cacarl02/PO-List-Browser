@@ -10,6 +10,9 @@
     justify-content: center;
     color: var(--gray-font-color);
 }
+.hidden {
+    display: none;
+}
 
 .modal-container {
     background-color: #fff;
