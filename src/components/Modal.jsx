@@ -153,13 +153,13 @@ function Modal({ isModalOpen, setIsModalOpen, selectedItems, setSelectedItems })
         />
         }
         <div className='modal-bottom'>
-          <button 
-            className='modal-bottom-left'
+          {<button 
+            className={`modal-bottom-left ${!selectedItemsClosed ? 'hidden' : ''}`}
             onClick={() => setSelectedItemsClosed(false)}
             disabled={selectedItems.length === 0}
           >
             {selectedItems.length} Product{selectedItems.length > 1 ? 's' : ''} selected
-          </button>
+          </button>}
           <div className='modal-bottom-right'>
             <button onClick={() => handleResetChanges()}>CANCEL</button>
             <button
