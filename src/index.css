@@ -1,3 +1,26 @@
 body {
   margin: 0;
+  font-family: 'Poppins', sans-serif;
+  color: var(--gray-font-color);
+}
+
+:root {
+  --gray-font-color: #333333;
+  --light-gray-color: rgba(16, 16, 16, 0.3);
+  --disabled-btn-bg-color: #555555;
+  --light-border-color: #d3d3d3;
+  --light-font-color: #7f7f7f;
+  --gray-hover-color: #e5e5e5;
+  --blue-hover: #2196f3;
+  --light-blue-hover: #bbdefb;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
