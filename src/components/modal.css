@@ -1,0 +1,281 @@
+.hidden {
+    visibility: hidden;
+}
+.modal{
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    background-color: rgba(0, 0, 0, .25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-font-color);
+}
+
+.modal-container {
+    background-color: #fff;
+    border-radius: 8px;
+    width: 600px;
+    height: 90%;
+    max-height: 670px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-top {
+    padding-top: 20px;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 56px;
+    position: relative;
+}
+
+.modal-bottom {
+    border-top: 1px solid var(--light-border-color);
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    position: relative;
+}
+.modal-bottom button, .modal-bottom-left {
+    background-color: #fff;
+    padding: 12px 24px;
+    text-align: center;
+    border: 1px solid var(--light-gray-color);
+}
+
+.modal-bottom button:not(:disabled), .modal-bottom-left:not(:disabled) {
+    color: var(--gray-font-color);
+}
+.modal-bottom button:disabled:last-child {
+    background-color: var(--gray-hover-color);
+}
+.modal-bottom button:not(:disabled):last-child {
+    background-color: #13274F;
+    color: #fff;
+}
+.modal-bottom button:last-child {
+    margin-left: 20px;
+}
+
+.btn-close {
+    position: absolute;
+    right: 40px;
+    background: none;
+    border: none;
+    font-size: 16px;
+}
+.btn-back {
+    vertical-align: middle;
+    position: absolute;
+    left: 40px;
+    background:none;
+    border: 1px solid var(--light-border-color);
+}
+
+.search-container {
+    position: relative;
+    margin: 0 40px;
+    display: flex;
+    align-items: center;
+}
+  
+.search-input {
+    padding: 12px 40px;
+    flex: 1;
+    border: 1px solid var(--light-gray-color);
+}
+
+.search-input::placeholder {
+    color: var(--light-gray-color);
+}
+
+.input-glass {
+    position: absolute;
+    left: 12px;
+    display: inline-flex;
+}
+
+.list-container {
+    border-top: 1px solid var(--light-border-color);
+    padding: 0 40px;
+    margin-top: 24px;
+    overflow-y: scroll;
+    margin-bottom: auto;
+}
+.list-supplier {
+    padding: 12px;
+    border-bottom: 1px solid var(--light-border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    &:hover {
+        background-color: var(--blue-hover);
+    }
+}
+.list-supplier.selected {
+    background-color: var(--light-blue-hover);
+}
+
+.product-clicked {
+    background-color: var(--gray-hover-color);
+}
+.arrow-dropdown {
+    color: var(--light-border-color);
+    transition: transform 0.3s ease;
+}
+.product-clicked .arrow-dropdown {
+    transform: rotate(90deg);
+    color: var(--gray-font-color);
+}
+.selected .arrow-dropdown {
+    color: var(--gray-font-color);
+}
+.list-product {
+    padding-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--light-border-color);
+}
+
+.list-product .product-name, .list-selection .product-name {
+    flex: 1;
+}
+
+
+.name-avatar-container {
+    display: flex;
+    align-items: center;
+}
+.list-selection .avatar {
+    margin: 20px;
+}
+.list-product .avatar {
+    margin: 20px 20px 20px 0;
+}
+.list-supplier:hover span {
+    color: white;
+}
+
+/* media queries */
+@media (max-width: 1024px) {
+    .modal-container {
+        width: 90%;
+    }
+}
+
+.product-child {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--light-border-color);
+}
+.product-child.clicked {
+    background-color: var(--light-blue-hover);
+}
+.product-child-left {
+    display: flex;
+    align-items: center;
+}
+
+.product-child input[type='checkbox'] {
+    margin: 20px;
+    transform: scale(1.5);
+    accent-color: var(--blue-hover);
+}
+.product-child-name div:last-child, .product-name div:last-child {
+    font-size: 14px;
+    color: var(--light-gray-color);
+}
+.product-child-name, .product-child-left, .product-name, .name-avatar-container {
+    min-width: 0;
+}
+.product-child-name div, .product-name div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.modal input[type='number'] {
+    margin: 20px 16px 20px 24px;
+    width: 40px;
+    padding: 4px 8px;
+    text-align: right;
+}
+.btn-trash {
+    opacity: 0;
+    background: none;
+    border: none;
+}
+
+.list-selection {
+    padding: 0px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--light-border-color);
+
+    &:hover {
+        background-color: var(--gray-hover-color);
+    }
+    &:hover .btn-trash {
+        opacity: 1;
+    }
+}
+
+.list-selection-container {
+    border-top: 1px solid var(--light-border-color);
+    margin-top: 24px;
+    overflow-y: scroll;
+    margin-bottom: auto;
+}
+.list-selection-number {
+    margin-right: 12px;
+}
+
+
+/* Example CSS to style react-toastify::before */
+
+.Toastify__toast {
+    display: flex;
+    padding: 0 !important;
+    background: #dcedc8;
+}
+.Toastify__toast::before {
+    content: '';
+    width: 10px;
+    background-color: var(--toastify-color-success);
+}
+.Toastify__toast-container {
+    color: black !important;
+    font-weight: 300;
+}
+.Toastify__close-button svg {
+    margin: 20px 20px 0 0;
+    color: black;
+}
+.Toastify__toast-body button {
+    cursor: pointer;
+    background: none;
+    border: 1px solid #7f7f7f;
+}
+.Toastify__toast-body {
+    padding: 20px !important;
+}
+.Toastify__toast-body div:last-child button {
+    margin-top: 10px;
+}
+
+.list-product, .list-supplier, .list-selection, .modal-bottom button:not(:disabled), .product-children label, .btn-close, .btn-back, .btn-trash {
+    cursor: pointer;
+}
+
+.no-items {
+    text-align: center;
+    margin-top: 80px;
+    color: var(--light-gray-color);
+}
